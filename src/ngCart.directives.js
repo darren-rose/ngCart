@@ -6,6 +6,15 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
     .controller('CartController',['$scope', 'ngCart', function($scope, ngCart) {
         $scope.ngCart = ngCart;
     }])
+    
+    .factory('templates', function(portletAppContextPath) {
+        return [
+            { "name": "Add to cart", url: portletAppContextPath + "templates/addtocart.html" },
+            { "name": "Cart", url: portletAppContextPath + "templates/cart.html" },
+            { "name": "Summary", url: portletAppContextPath + "templates/summary.html" },
+            { "name": "Checkout", url: portletAppContextPath + "templates/checkout.html" }
+        ];
+    })
 
     .directive('ngcartAddtocart', ['ngCart', function(ngCart){
         return {
@@ -20,7 +29,7 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
                 data:'='
             },
             transclude: true,
-            templateUrl: 'template/ngCart/addtocart.html',
+            templateUrl: templates[0],
             link:function(scope, element, attrs){
                 scope.attrs = attrs;
                 scope.inCart = function(){
@@ -48,7 +57,7 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             restrict : 'E',
             controller : 'CartController',
             scope: {},
-            templateUrl: 'template/ngCart/cart.html',
+            templateUrl: templates[1],
             link:function(scope, element, attrs){
 
             }
@@ -61,7 +70,7 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
             controller : 'CartController',
             scope: {},
             transclude: true,
-            templateUrl: 'template/ngCart/summary.html'
+            templateUrl: templates[2]
         };
     }])
 
@@ -83,6 +92,6 @@ angular.module('ngCart.directives', ['ngCart.fulfilment'])
                 settings:'='
             },
             transclude: true,
-            templateUrl: 'template/ngCart/checkout.html'
+            templateUrl: templates[3]
         };
     }]);
